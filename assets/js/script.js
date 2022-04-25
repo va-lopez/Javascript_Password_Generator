@@ -9,6 +9,16 @@ function writePassword() {
   passwordText.value = password;
 }
 
+/*call this function to generate a random number between 0 and the length of
+desired characters chosen from prompt. It will spit out a single character that gets
+concatinated to the generatedPWvariable later.*/
+var getRandomCharacter = function(includedCharacters){
+  debugger;
+  max = includedCharacters.length;
+  var randomNumber = Math.floor(Math.random()*max);
+  return includedCharacters.charAt(randomNumber);
+}
+
 var generatePassword = function(){
   //declaring variables
   var includedCharacters = "";
@@ -16,6 +26,7 @@ var generatePassword = function(){
   var numeric = "0123456789";
   var lowerCase="abcdefghijklmnopqrstuvwxyz";
   var upperCase ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var generatedPW ="";
 
   //check to see how long is the desired length of password
   var desiredLength = window.prompt('How many characters would you like your password to contain?');
@@ -63,8 +74,16 @@ var generatePassword = function(){
     console.log(includedCharacters);
   }
 
+  //this section is to generate the password:
+  for(var i = 0; i < desiredLength; i++){
+    var character = getRandomCharacter(includedCharacters);
+    generatedPW += character;
+  }
 
+  console.log(generatedPW);
+  return generatedPW;
 }
+
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
