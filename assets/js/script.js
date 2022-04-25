@@ -11,9 +11,8 @@ function writePassword() {
 
 /*call this function to generate a random number between 0 and the length of
 desired characters chosen from prompt. It will spit out a single character that gets
-concatinated to the generatedPWvariable later.*/
+concatinated to the generatedPW variable in the generatePassword function.*/
 var getRandomCharacter = function(includedCharacters){
-  debugger;
   max = includedCharacters.length;
   var randomNumber = Math.floor(Math.random()*max);
   return includedCharacters.charAt(randomNumber);
@@ -21,67 +20,54 @@ var getRandomCharacter = function(includedCharacters){
 
 var generatePassword = function(){
   //declaring variables
-  var includedCharacters = "";
-  var special = /[ !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+  var includedCharacters = "";    //as the user chooses which characters to include, this variable will get filled up.
+  var special = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
   var numeric = "0123456789";
   var lowerCase="abcdefghijklmnopqrstuvwxyz";
   var upperCase ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var generatedPW ="";
+  var generatedPW ="";           //this is the variable that gets return to become the final password.
 
   //check to see how long is the desired length of password
   var desiredLength = window.prompt('How many characters would you like your password to contain?');
-  
-  //convert length into an integer to use later
-  desiredLength = parseInt(desiredLength);
-  console.log("Chose "+ desiredLength + " characters.")
 
-  //check to make sure that desired length meets min length requirements
+  //check to make sure that desired length meets length requirements
   if(desiredLength < 8 || desiredLength > 128){
     window.alert('Password length must be at least 8 characters and no more than 128');
-    return;
+    return;   //if this condition is not met then we will be pulled out of this function to start again.
   }
   
-  //This section is to confirm what kind of characters we'll be using.//
+  //This section is to confirm if including special characters.
   var confirmSpecial = window.confirm('Click "OK" to confirm including special characters.');
-  console.log('Special characters is: ' + confirmSpecial);
-  //add if statements here to include special characters
   if(confirmSpecial){
     includedCharacters +=special;
-    console.log(includedCharacters);
   }
 
+  //Confirming to include numeric values.
   var confirmNumeric = window.confirm('Click "OK" to include numeric characters.');
-  console.log('Numeric characters is: ' + confirmNumeric);
-  //add if statements here to include numeric characters
   if(confirmNumeric){
     includedCharacters +=numeric;
-    console.log(includedCharacters);
   }
 
+  //Confirm to include lowercase characters
   var confirmLowerCase = window.confirm('Click "OK" to confirm including lowercase characters.');
-  console.log('LowerCase characters is: ' + confirmLowerCase);
-  //add if statements to include lowercase;
   if(confirmLowerCase){
     includedCharacters +=lowerCase;
-    console.log(includedCharacters);
   }
 
+  //Confirm to include UpperCase characters
   var confirmUpperCase = window.confirm('Click "OK" to confirm including uppercase characters.');
-  console.log('UpperCase characters is ' + confirmUpperCase);
-  //add if statements to include uppercase;
   if(confirmUpperCase){
     includedCharacters+=upperCase;
-    console.log(includedCharacters);
   }
 
-  //this section is to generate the password:
+  /*this section is to generate the password. The for loop will itterated to the number of characters
+  the user had requested*/
   for(var i = 0; i < desiredLength; i++){
-    var character = getRandomCharacter(includedCharacters);
-    generatedPW += character;
+    var character = getRandomCharacter(includedCharacters);   //this function will generate a random character from the chosen pool from before.
+    generatedPW += character;                                 //the random character gets added to the generatedPW variable until reaches the length requirement.
   }
 
-  console.log(generatedPW);
-  return generatedPW;
+  return generatedPW;   //return the string for the pw.
 }
 
 
