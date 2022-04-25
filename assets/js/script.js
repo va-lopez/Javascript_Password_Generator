@@ -3,9 +3,17 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+    //check to see how long is the desired length of password
+    var desiredLength = window.prompt('How many characters would you like your password to contain?');
 
+    //check to make sure that desired length meets length requirements
+    if(desiredLength < 8 || desiredLength > 128){
+      window.alert('Password length must be at least 8 characters and no more than 128');
+    }
+    else{
+      var password = generatePassword(desiredLength);
+      var passwordText = document.querySelector("#password");
+    }
   passwordText.value = password;
 }
 
@@ -18,7 +26,8 @@ var getRandomCharacter = function(includedCharacters){
   return includedCharacters.charAt(randomNumber);
 }
 
-var generatePassword = function(){
+//function to generate the password
+var generatePassword = function(desiredLength){
   //declaring variables
   var includedCharacters = "";    //as the user chooses which characters to include, this variable will get filled up.
   var special = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
@@ -27,15 +36,6 @@ var generatePassword = function(){
   var upperCase ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var generatedPW ="";           //this is the variable that gets return to become the final password.
 
-  //check to see how long is the desired length of password
-  var desiredLength = window.prompt('How many characters would you like your password to contain?');
-
-  //check to make sure that desired length meets length requirements
-  if(desiredLength < 8 || desiredLength > 128){
-    window.alert('Password length must be at least 8 characters and no more than 128');
-    return;   //if this condition is not met then we will be pulled out of this function to start again.
-  }
-  
   //This section is to confirm if including special characters.
   var confirmSpecial = window.confirm('Click "OK" to confirm including special characters.');
   if(confirmSpecial){
@@ -60,6 +60,7 @@ var generatePassword = function(){
     includedCharacters+=upperCase;
   }
 
+  //if none of the conditions are chosen, a pw can't be created. Prompt the user to try again. 
   if(!confirmSpecial && !confirmNumeric && !confirmLowerCase && !confirmUpperCase){
     window.alert("Please try again and select at least one condition from the prompts to generate a valid password.");
     return;
