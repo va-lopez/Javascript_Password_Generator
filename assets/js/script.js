@@ -60,6 +60,11 @@ var generatePassword = function(){
     includedCharacters+=upperCase;
   }
 
+  if(!confirmSpecial && !confirmNumeric && !confirmLowerCase && !confirmUpperCase){
+    window.alert("Please try again and select at least one condition from the prompts to generate a valid password.");
+    return;
+  }
+
   /*this section is to generate the password. The for loop will itterated to the number of characters
   the user had requested*/
   for(var i = 0; i < desiredLength; i++){
